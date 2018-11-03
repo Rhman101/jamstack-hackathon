@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, BrowserRouter } from "react-router-dom";
+import '../styles/styles.scss';
 
 import * as routes from "../constants/routes";
 
