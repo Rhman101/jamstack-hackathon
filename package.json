@@ -1,29 +1,56 @@
 {
-  "name": "gatsby-starter-default",
-  "description": "Gatsby default starter",
+  "name": "react-boilerplate",
   "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
-  "dependencies": {
-    "gatsby": "^1.9.277",
-    "gatsby-link": "^1.6.46",
-    "gatsby-plugin-react-helmet": "^2.0.11",
-    "react-helmet": "^5.2.0"
-  },
-  "keywords": [
-    "gatsby"
-  ],
+  "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write 'src/**/*.js'",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:dev": "webpack",
+    "build:prod": "webpack -p --env production",
+    "dev-server": "webpack-dev-server",
+    "test": "cross-env NODE_ENV=test jest --config=jest.config.json",
+    "start": "node server/server.js",
+    "heroku-postbuild": "yarn run build:prod"
+  },
+  "dependencies": {
+    "babel-cli": "6.24.1",
+    "babel-core": "6.25.0",
+    "babel-loader": "7.1.1",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-plugin-transform-object-rest-spread": "6.23.0",
+    "babel-polyfill": "6.26.0",
+    "babel-preset-env": "1.5.2",
+    "babel-preset-react": "6.24.1",
+    "css-loader": "0.28.4",
+    "express": "4.15.4",
+    "extract-text-webpack-plugin": "3.0.0",
+    "firebase": "4.2.0",
+    "history": "4.7.2",
+    "moment": "2.18.1",
+    "node-sass": "4.5.3",
+    "normalize.css": "7.0.0",
+    "numeral": "2.0.6",
+    "raf": "3.3.2",
+    "react": "16.0.0",
+    "react-addons-shallow-compare": "15.6.0",
+    "react-dom": "16.0.0",
+    "react-redux": "5.0.5",
+    "react-router-dom": "4.2.2",
+    "redux": "3.7.2",
+    "redux-mock-store": "1.2.3",
+    "redux-thunk": "2.2.0",
+    "sass-loader": "6.0.6",
+    "style-loader": "0.18.2",
+    "validator": "^8.0.0",
+    "webpack": "3.1.0"
   },
   "devDependencies": {
-    "prettier": "^1.13.7"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+    "cross-env": "5.0.5",
+    "dotenv": "4.0.0",
+    "enzyme": "3.0.0",
+    "enzyme-adapter-react-16": "1.0.0",
+    "enzyme-to-json": "3.0.1",
+    "jest": "20.0.4",
+    "react-test-renderer": "16.0.0",
+    "webpack-dev-server": "2.5.1"
   }
 }
