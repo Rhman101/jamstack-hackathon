@@ -1,41 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { login, logout } from './actions/auth';
-import LoadingPage from './components/LoadingPage';
-import { firebase } from './firebase/firebase';
-import AppRouter, { history } from './routers/AppRouter';
-import configureStore from './store/configureStore';
-import 'normalize.css/normalize.css';
-import './styles/styles.scss';
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
 
-const store = configureStore();
-
-const jsx = (
-  <Provider store={store}>
-    <AppRouter />
-  </Provider>
-);
-let hasRendered = false;
-const renderApp = () => {
-  if (!hasRendered) {
-    ReactDOM.render(jsx, document.getElementById('app'));
-    hasRendered = true;
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <p>
+            Edit <code>src/App.js</code> and save to reload.
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </header>
+      </div>
+    );
   }
 }
 
-ReactDOM.render(<LoadingPage />, document.getElementById('app'));
-
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    store.dispatch(login(user.uid));
-    renderApp();
-    if (history.location.pathname === '/') {
-      history.push('/dashboard');
-    }
-  } else {
-    store.dispatch(logout());
-    renderApp();
-    history.push('/');
-  }
-});
+export default App;
