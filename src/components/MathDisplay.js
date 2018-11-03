@@ -5,24 +5,30 @@ class MathDisplay extends Component {
     firstNumber: 12,
     operation: '+',
     secondNumber: 12,
-    result: 24
+    answer: undefined
   };
-
+  onNumberChange = (e) => {
+    e.preventDefault()
+    const { value } = e.target
+    this.setState(() => ({
+      answer: value
+    }))
+  }
   render() {
     return (
       <div className="content-container">
-        <div className="box">
-          <div>
+        <div>
+          <div className="box">
             {this.state.firstNumber}
             {this.state.operation}
             {this.state.secondNumber}
           </div>
-          <div>
-            =
-            {this.state.result}
-          </div>
+          <form className="content-container">
+            <input type="number" value={this.state.answer} onChange={this.state.onNumberChange} />
+            <button type="submit" >Submit</button>
+          </form>
         </div>
-      </div >
+      </div>
     );
   }
 }
