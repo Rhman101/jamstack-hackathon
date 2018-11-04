@@ -21,11 +21,14 @@ const styles = (theme) => ({
 class CountDownTimer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { timeLeft: 100, started: false };
+    this.state = {
+      timeLeft: 100,
+      started: false
+    };
   }
 
   componentDidMount() {
-    this.timer = setInterval(this.progress, 600);
+    this.timer = setInterval(this.progress, 100);
   }
 
   componentWillUnmount() {
@@ -33,7 +36,7 @@ class CountDownTimer extends React.Component {
   }
 
   timerReset = () => {
-    this.setState({ timeLeft: 100, started: true });
+    this.setState({ timeLeft: 100, started: !this.state.started });
   };
 
   progress = () => {
