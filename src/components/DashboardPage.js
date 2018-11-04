@@ -8,13 +8,16 @@ import * as actions from "../actions";
 class DashboardPage extends Component {
   componentDidMount() {
     this.props.getGames();
+    this.props.getUser();
   }
   render() {
     const { games } = this.props;
     return (
       <div>
         <h2>Dashboard</h2>
-        <p>{games && games.addition && games.addition.level}</p>
+        <h3>Saved Games</h3>
+
+        <p>{games && games[0][1].level}</p>
       </div>
     );
   }
@@ -22,8 +25,13 @@ class DashboardPage extends Component {
 
 const authCondition = authUser => !!authUser;
 
-const mapStateToProps = state => ({
-  games: state.games
+const mapStateToProps = ({ games }) => ({
+  games: [
+    ["addition", games.addition],
+    ["subtraction", games.subtraction],
+    ["multiplication", games.multiplication],
+    ["division", games.division]
+  ]
 });
 
 export default compose(

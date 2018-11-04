@@ -1,38 +1,50 @@
 import database, { firebase, googleAuthProvider } from "../services/firebase";
 
-export const getUser = () => async (dispatch, getState) => {
+export const getUser = () => (dispatch, getState) => {
   const authUser = getState().auth.authUser;
 
-  const user = await database.ref(`users/${authUser}`).once("value");
-
-  dispatch({ type: "GET_USER", user });
+  database
+    .ref(`users/${authUser}`)
+    .once("value")
+    .then(user => {
+      dispatch({ type: "GET_USER", user });
+    });
 };
 
-export const updateUser = updates => async (dispatch, getState) => {
+export const updateUser = updates => (dispatch, getState) => {
   const authUser = getState().auth.authUser;
 
-  const user = await database.ref(`users/${authUser}`).update(updates);
-
-  dispatch({ type: "GET_USER", user });
+  database
+    .ref(`users/${authUser}`)
+    .update(updates)
+    .then(user => {
+      dispatch({ type: "GET_USER", user });
+    });
 };
 
-export const deleteUser = () => async (dispatch, getState) => {
+export const deleteUser = () => (dispatch, getState) => {
   const authUser = getState().auth.authUser;
 
-  await database.ref(`users/${authUser}`).remove();
-
-  dispatch({ type: "CLEAR_USER" });
+  database
+    .ref(`users/${authUser}`)
+    .remove()
+    .then(() => {
+      dispatch({ type: "CLEAR_USER" });
+    });
 };
 
-export const getGames = () => async (dispatch, getState) => {
+export const getGames = () => (dispatch, getState) => {
   const authUser = getState().auth.authUser;
 
-  const games = await database.ref(`users/${authUser}/games`).once("value");
-
-  dispatch({ type: "GET_GAMES", games });
+  database
+    .ref(`users/${authUser}/games`)
+    .once("value")
+    .then(games => {
+      dispatch({ type: "GET_GAMES", games });
+    });
 };
 
-export const saveGame = (currentGame, area) => async (dispatch, getState) => {
+export const saveGame = (currentGame, area) => (dispatch, getState) => {
   const authUser = getState().auth.authUser;
   const {
     area,
@@ -43,21 +55,25 @@ export const saveGame = (currentGame, area) => async (dispatch, getState) => {
   } = currentGame;
   const gameToSave = { level, charHealth, monsterHealth, questionNumber };
 
-  const savedGame = await database
+  database
     .ref(`users/${authUser}/games/${area}`)
-    .set(gameToSave);
+    .set(gameToSave)
+    .then(savedGame => {
+      const game = { id: savedGame.id, ...savedGame };
 
-  const game = { id: savedGame.id, ...savedGame };
-
-  dispatch({ type: "SAVE_GAME", game, area });
+      dispatch({ type: "SAVE_GAME", game, area });
+    });
 };
 
-export const clearGame = area => async (dispatch, getState) => {
+export const clearGame = area => (dispatch, getState) => {
   const authUser = getState().auth.authUser;
 
-  await database.ref(`users/${authUser}/games/${area}`).remove();
-
-  dispatch({ type: "CLEAR_GAME", area });
+  database
+    .ref(`users/${authUser}/games/${area}`)
+    .remove()
+    .then(() => {
+      dispatch({ type: "CLEAR_GAME", area });
+    });
 };
 
 export const startCreateUserWithEmail = (email, password) =>
@@ -75,10 +91,10 @@ export const loginWithGoogleAuth = () =>
 export const loginWithEmail = (email, password) =>
   firebase.auth().signInWithEmailAndPassword(email, password);
 
-export const logout = () => async dispatch => {
-  await firebase.auth().signOut;
-
-  dispatch({ type: "SET_AUTH", authUser: null });
+export const logout = () => dispatch => {
+  firebase.auth().signOut.then(() => {
+    dispatch({ type: "SET_AUTH", authUser: null });
+  });
 };
 
 export const setAuthUser = authUser => dispatch => {

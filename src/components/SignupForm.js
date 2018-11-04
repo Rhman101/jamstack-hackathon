@@ -1,5 +1,6 @@
 import React from "react";
 
+import * as routes from "../constants/routes";
 import { startCreateUserWithEmail, createUserWithEmail } from "../actions";
 
 const INITIAL_STATE = {
@@ -20,10 +21,10 @@ class SignUpForm extends React.Component {
     const { history } = this.props;
     startCreateUserWithEmail(email, passwordOne)
       .then(authUser => {
-        createUserWithEmail(authUser.uid, username, email)
+        createUserWithEmail(authUser.user.uid, username, email)
           .then(authUser => {
             this.setState(() => ({ ...INITIAL_STATE }));
-            history.push("/");
+            history.push(routes.DASHBOARD);
           })
           .catch(error => {
             this.setState(() => ({
