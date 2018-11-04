@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ProgressBox from "./ProgressBox";
 
 class Game extends Component {
   state = {};
@@ -7,6 +8,7 @@ class Game extends Component {
     return (
       <div>
         <h2>Game</h2>
+        <ProgressBox />
       </div>
     );
   }
