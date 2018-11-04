@@ -1,47 +1,112 @@
 import React from "react";
-import Dialog from "@material-ui/core/Dialog";
-import Button from "@material-ui/core/Button";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import TextField from "@material-ui/core/TextField";
 
-class SignupForm extends React.Component {
-  state = {
-    open: false
+import * as routes from "../constants/routes";
+import { startCreateUserWithEmail, createUserWithEmail } from "../actions";
+
+const INITIAL_STATE = {
+  username: "",
+  email: "",
+  passwordOne: "",
+  passwordTwo: "",
+  error: null
+};
+
+class SignUpForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { ...INITIAL_STATE };
+  }
+  onSubmit = event => {
+    const { username, email, passwordOne } = this.state;
+    const { history } = this.props;
+    startCreateUserWithEmail(email, passwordOne)
+      .then(authUser => {
+        createUserWithEmail(authUser.user.uid, username, email)
+          .then(authUser => {
+            this.setState(() => ({ ...INITIAL_STATE }));
+            history.push(routes.DASHBOARD);
+          })
+          .catch(error => {
+            this.setState(() => ({
+              error
+            }));
+          });
+      })
+      .catch(error => {
+        this.setState(() => ({
+          error
+        }));
+      });
+    event.preventDefault();
   };
-
-  handleClickOpen = () => {
-    this.setState({ open: true });
+  onUsernameChange = event => {
+    const username = event.target.value;
+    this.setState(() => ({
+      username
+    }));
   };
-
-  handleClose = () => {
-    //Functionality comes here
-
-    this.setState({ open: false });
+  onEmailChange = event => {
+    const email = event.target.value;
+    this.setState(() => ({
+      email
+    }));
   };
-
+  onPasswordOneChange = event => {
+    const passwordOne = event.target.value;
+    this.setState(() => ({
+      passwordOne
+    }));
+  };
+  onPasswordTwoChange = event => {
+    const passwordTwo = event.target.value;
+    this.setState(() => ({
+      passwordTwo
+    }));
+  };
   render() {
+    const { username, email, passwordOne, passwordTwo, error } = this.state;
+    const isInvalid =
+      passwordOne !== passwordTwo ||
+      passwordOne === "" ||
+      email === "" ||
+      username === "";
     return (
-      <div>
-        <Button onClick={this.handleClickOpen} variant="contained" size="large" color="default">
+      <form onSubmit={this.onSubmit} className="form">
+        <input
+          value={username}
+          onChange={this.onUsernameChange}
+          type="text"
+          placeholder="First Name"
+          className="text-input"
+        />
+        <input
+          value={email}
+          onChange={this.onEmailChange}
+          type="text"
+          placeholder="Email Address"
+          className="text-input"
+        />
+        <input
+          value={passwordOne}
+          onChange={this.onPasswordOneChange}
+          type="password"
+          placeholder="Password"
+          className="text-input"
+        />
+        <input
+          value={passwordTwo}
+          onChange={this.onPasswordTwoChange}
+          type="password"
+          placeholder="Confirm Password"
+          className="text-input"
+        />
+        <button disabled={isInvalid} type="submit" className="button">
           Sign Up
-        </Button>
-        <Dialog open={this.state.open} onClose={this.handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Sign Up</DialogTitle>
-          <DialogContent>
-            <TextField autoFocus margin="dense" id="name" label="Choose a User ID" type="email" fullWidth />
-            <TextField autoFocus margin="dense" id="password" label="Choose a Password" type="password" fullWidth />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} variant="contained" color="primary">
-              Sign Up
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </div>
+        </button>
+        {error && <p>{error.message}</p>}
+      </form>
     );
   }
 }
 
-export default SignupForm;
+export default SignUpForm;

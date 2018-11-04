@@ -1,23 +1,23 @@
 import React from "react";
-import { loginWithEmail } from "../actions";
+import { Link } from "react-router-dom";
+
+import { startResetPassword } from "../actions";
 
 const INITIAL_STATE = {
   email: "",
-  password: "",
   error: null
 };
 
-class LoginForm extends React.Component {
+class PasswordForgetForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
   }
   onSubmit = event => {
-    const { email, password } = this.state;
-    loginWithEmail(email, password)
+    const { email } = this.state;
+    startResetPassword(email)
       .then(() => {
         this.setState(() => ({ ...INITIAL_STATE }));
-        this.props.history.push("/");
       })
       .catch(error => {
         this.setState(() => ({
@@ -26,39 +26,26 @@ class LoginForm extends React.Component {
       });
     event.preventDefault();
   };
-  onEmailChange = event => {
-    const email = event.target.value;
+  onEmailChange = e => {
+    const email = e.target.value;
     this.setState(() => ({
       email
     }));
   };
-  onPasswordChange = event => {
-    const password = event.target.value;
-    this.setState(() => ({
-      password
-    }));
-  };
   render() {
-    const { email, password, error } = this.state;
-    const isInvalid = password === "" || email === "";
+    const { email, error } = this.state;
+    const isInvalid = email === "";
     return (
       <form onSubmit={this.onSubmit} className="form">
         <input
-          value={email}
+          value={this.state.email}
           onChange={this.onEmailChange}
           type="text"
           placeholder="Email Address"
           className="text-input"
         />
-        <input
-          value={password}
-          onChange={this.onPasswordChange}
-          type="password"
-          placeholder="Password"
-          className="text-input"
-        />
         <button disabled={isInvalid} type="submit" className="button">
-          Log in
+          Reset My Password
         </button>
         {error && <p>{error.message}</p>}
       </form>
@@ -66,4 +53,4 @@ class LoginForm extends React.Component {
   }
 }
 
-export default LoginForm;
+export default PasswordForgetForm;

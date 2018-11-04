@@ -1,3 +1,4 @@
+import requireLogin from "./requireLogin";
 import React, { Component } from "react";
 import ProgressBox from "./ProgressBox";
 import NavBar from "./NavBar";
@@ -16,4 +17,6 @@ class Game extends Component {
   }
 }
 
-export default Game;
+const authCondition = authUser => !!authUser;
+
+export default requireLogin(authCondition)(Game);

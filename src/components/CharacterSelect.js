@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 import * as routes from "../constants/routes";
+import CHARACTERS from "../constants/characters";
 import OptionCard from "./OptionCard";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";

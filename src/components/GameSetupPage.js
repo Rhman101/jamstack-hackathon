@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import requireLogin from "./requireLogin";
 import CharacterSelect from "./CharacterSelect";
 import AreaSelect from "./AreaSelect";
 import NavBar from "./NavBar";
@@ -15,7 +16,9 @@ class GameSetupPage extends Component {
   };
 
   toggleShowCharacterSelect = () => {
-    this.setState((prevState) => ({ showCharacterSelect: !prevState.showCharacterSelect }));
+    this.setState(prevState => ({
+      showCharacterSelect: !prevState.showCharacterSelect
+    }));
   };
 
   render() {
@@ -35,4 +38,6 @@ class GameSetupPage extends Component {
   }
 }
 
-export default GameSetupPage;
+const authCondition = authUser => !!authUser;
+
+export default requireLogin(authCondition)(GameSetupPage);
