@@ -6,9 +6,18 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 
 class DashboardPage extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     this.props.getGames();
     this.props.getUser();
+
+    const game = {
+      area: "addition",
+      level: 2,
+      charHealth: 90,
+      monsterHealth: 100,
+      questionNumber: 1
+    };
+    this.props.saveGame(game);
   }
   render() {
     const { games } = this.props;
@@ -17,7 +26,7 @@ class DashboardPage extends Component {
         <h2>Dashboard</h2>
         <h3>Saved Games</h3>
 
-        <p>{games && games[0][1].level}</p>
+        <p />
       </div>
     );
   }
