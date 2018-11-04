@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import CharacterSelect from "./CharacterSelect";
 import AreaSelect from "./AreaSelect";
 import NavBar from "./NavBar";
+import Typography from "@material-ui/core/Typography";
 
 class GameSetupPage extends Component {
   state = {
@@ -21,8 +22,9 @@ class GameSetupPage extends Component {
     return (
       <div>
         <NavBar />
-
-        <h2>New Game</h2>
+        <Typography component="h4" variant="h4" style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
+          New Game
+        </Typography>
         {this.state.showCharacterSelect ? (
           <CharacterSelect handleCharacterSelect={this.handleCharacterSelect} />
         ) : (
