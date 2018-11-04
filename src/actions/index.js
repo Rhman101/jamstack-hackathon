@@ -1,39 +1,39 @@
 import database, { firebase, googleAuthProvider } from "../services/firebase";
 
 export const getUser = () => async (dispatch, getState) => {
-  const uid = getState().auth.uid;
+  const authUser = getState().auth.authUser;
 
-  const user = await database.ref(`users/${uid}`).once("value");
+  const user = await database.ref(`users/${authUser}`).once("value");
 
   dispatch({ type: "GET_USER", user });
 };
 
 export const updateUser = updates => async (dispatch, getState) => {
-  const uid = getState().auth.uid;
+  const authUser = getState().auth.authUser;
 
-  const user = await database.ref(`users/${uid}`).update(updates);
+  const user = await database.ref(`users/${authUser}`).update(updates);
 
   dispatch({ type: "GET_USER", user });
 };
 
 export const deleteUser = () => async (dispatch, getState) => {
-  const uid = getState().auth.uid;
+  const authUser = getState().auth.authUser;
 
-  await database.ref(`users/${uid}`).remove();
+  await database.ref(`users/${authUser}`).remove();
 
   dispatch({ type: "CLEAR_USER" });
 };
 
 export const getGames = () => async (dispatch, getState) => {
-  const uid = getState().auth.uid;
+  const authUser = getState().auth.authUser;
 
-  const games = await database.ref(`users/${uid}/games`).once("value");
+  const games = await database.ref(`users/${authUser}/games`).once("value");
 
   dispatch({ type: "GET_GAMES", games });
 };
 
 export const saveGame = (currentGame, area) => async (dispatch, getState) => {
-  const uid = getState().auth.uid;
+  const authUser = getState().auth.authUser;
   const {
     area,
     level = 1,
@@ -44,7 +44,7 @@ export const saveGame = (currentGame, area) => async (dispatch, getState) => {
   const gameToSave = { level, charHealth, monsterHealth, questionNumber };
 
   const savedGame = await database
-    .ref(`users/${uid}/games/${area}`)
+    .ref(`users/${authUser}/games/${area}`)
     .set(gameToSave);
 
   const game = { id: savedGame.id, ...savedGame };
@@ -53,9 +53,9 @@ export const saveGame = (currentGame, area) => async (dispatch, getState) => {
 };
 
 export const clearGame = area => async (dispatch, getState) => {
-  const uid = getState().auth.uid;
+  const authUser = getState().auth.authUser;
 
-  await database.ref(`users/${uid}/games/${area}`).remove();
+  await database.ref(`users/${authUser}/games/${area}`).remove();
 
   dispatch({ type: "CLEAR_GAME", area });
 };
