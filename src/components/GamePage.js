@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+
 import MathDisplay from './MathDisplay'
-import Bar from './Bar'
+import ProgressBox from "./ProgressBox";
 
 class Game extends Component {
   state = {
@@ -22,13 +23,7 @@ class Game extends Component {
       <div className="content-container">
         <h2 className="title">{this.state.area}</h2>
         <MathDisplay area={this.state.area} />
-
-        <h4>Current Health of {this.state.name}</h4>
-        <Bar />
-        <h4>Current Health of Monster</h4>
-        <Bar />
-        <h4>Time Left</h4>
-        <Bar />
+        <ProgressBox />
       </div>
     );
   }
