@@ -8,27 +8,26 @@ import NavBar from "./NavBar";
 
 class DashboardPage extends Component {
   async componentDidMount() {
-    this.props.getGames();
+    this.props.getGame();
     this.props.getUser();
 
     const game = {
       area: "addition",
-      level: 2,
+      level: 3,
       charHealth: 90,
-      monsterHealth: 100,
-      questionNumber: 1
+      monsterHealth: 50,
+      questionNumber: 2
     };
     this.props.saveGame(game);
   }
   render() {
-    const { games } = this.props;
+    const { game } = this.props;
     return (
       <div>
         <NavBar />
         <h2>Dashboard</h2>
-        <h3>Saved Games</h3>
-
-        <p />
+        <h3>Saved Game</h3>
+        <p>{game.level}</p>
       </div>
     );
   }
@@ -36,13 +35,8 @@ class DashboardPage extends Component {
 
 const authCondition = authUser => !!authUser;
 
-const mapStateToProps = ({ games }) => ({
-  games: [
-    ["addition", games.addition],
-    ["subtraction", games.subtraction],
-    ["multiplication", games.multiplication],
-    ["division", games.division]
-  ]
+const mapStateToProps = ({ game }) => ({
+  game
 });
 
 export default compose(
