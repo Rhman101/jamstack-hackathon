@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 
+import requireLogin from "./requireLogin";
 import CharacterSelect from "./CharacterSelect";
 import AreaSelect from "./AreaSelect";
+import NavBar from "./NavBar";
+import Typography from "@material-ui/core/Typography";
 
 class GameSetupPage extends Component {
   state = {
@@ -10,20 +13,31 @@ class GameSetupPage extends Component {
 
   handleCharacterSelect = () => {
     this.toggleShowCharacterSelect();
-  }
+  };
 
   toggleShowCharacterSelect = () => {
-    this.setState(prevState => ({ showCharacterSelect: !prevState.showCharacterSelect }));
-  }
+    this.setState(prevState => ({
+      showCharacterSelect: !prevState.showCharacterSelect
+    }));
+  };
 
   render() {
     return (
       <div>
-        <h2>New Game</h2>
-        {this.state.showCharacterSelect ? <CharacterSelect handleCharacterSelect={this.handleCharacterSelect} /> : <AreaSelect onCancel={this.toggleShowCharacterSelect} />}
+        <NavBar />
+        <Typography component="h4" variant="h4" style={{ display: "flex", justifyContent: "center", marginTop: 20 }}>
+          New Game
+        </Typography>
+        {this.state.showCharacterSelect ? (
+          <CharacterSelect handleCharacterSelect={this.handleCharacterSelect} />
+        ) : (
+          <AreaSelect onCancel={this.toggleShowCharacterSelect} />
+        )}
       </div>
     );
   }
 }
 
-export default GameSetupPage;
+const authCondition = authUser => !!authUser;
+
+export default requireLogin(authCondition)(GameSetupPage);

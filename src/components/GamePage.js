@@ -1,7 +1,9 @@
+import requireLogin from "./requireLogin";
 import React, { Component } from "react";
 
 import MathDisplay from './MathDisplay'
 import ProgressBox from "./ProgressBox";
+import NavBar from "./NavBar";
 
 class Game extends Component {
   state = {
@@ -29,10 +31,17 @@ class Game extends Component {
           playerHealth={this.state.playerHealth}
           monsterHealth={this.state.monsterHealth}
         />
+  render() {
+    return (
+      <div>
+        <NavBar />
+        <h2>Game</h2>
         <ProgressBox />
       </div>
     );
   }
 }
 
-export default Game;
+const authCondition = authUser => !!authUser;
+
+export default requireLogin(authCondition)(Game);

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import Typography from "@material-ui/core/Typography";
-import LoginForm from "./LoginForm";
-import SignupForm from "./SignupForm";
+import Button from "@material-ui/core/Button";
+
+import * as routes from "../constants/routes";
 
 const topLayout = {
   width: "100%",
@@ -24,23 +25,41 @@ const bottomLayout = {
 };
 
 class LandingPage extends Component {
-  state = {};
+  redirectToSignup = () => {
+    this.props.history.push(routes.SIGNUP);
+  };
+
+  redirectToLogin = () => {
+    this.props.history.push(routes.LOGIN);
+  };
 
   render() {
     return (
       <div>
         <div style={topLayout}>
-          <Typography component="h2" variant="h2" style={{ fontFamily: "Titillium Web" }}>
-            Mathosaurus X
+          <Typography
+            component="h2"
+            variant="h2"
+            style={{ fontFamily: "Titillium Web" }}
+          >
+            Math Monsters
           </Typography>
           <Typography component="h3" variant="h4">
             Welcome, Learner!
           </Typography>
         </div>
         <div style={bottomLayout}>
-          <LoginForm />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.redirectToSignup}
+          >
+            Sign Up
+          </Button>
           <h2 style={{ fontFamily: "Titillium Web" }}>Or</h2>
-          <SignupForm />
+          <Button variant="outlined" onClick={this.redirectToLogin}>
+            Log In
+          </Button>
         </div>
       </div>
     );
