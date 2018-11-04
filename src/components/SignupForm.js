@@ -1,5 +1,4 @@
 import React from "react";
-import database from "../services/firebase";
 
 import { startCreateUserWithEmail, createUserWithEmail } from "../actions";
 
