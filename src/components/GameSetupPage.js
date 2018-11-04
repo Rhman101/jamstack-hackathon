@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import requireLogin from "./requireLogin";
 import CharacterSelect from "./CharacterSelect";
 import AreaSelect from "./AreaSelect";
+import NavBar from "./NavBar";
 
 class GameSetupPage extends Component {
   state = {
@@ -22,6 +23,8 @@ class GameSetupPage extends Component {
   render() {
     return (
       <div>
+        <NavBar />
+
         <h2>New Game</h2>
         {this.state.showCharacterSelect ? (
           <CharacterSelect handleCharacterSelect={this.handleCharacterSelect} />

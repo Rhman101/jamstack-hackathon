@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { createStore, applyMiddleware, compose } from "redux";
 import reduxThunk from "redux-thunk";
 import * as serviceWorker from "./serviceWorker";
+import WebFont from "webfontloader";
 
 import App from "./components/App";
 import appReducer from "./reducers";
@@ -15,6 +16,12 @@ const store = createStore(
   {},
   composeEnhancers(applyMiddleware(reduxThunk))
 );
+
+WebFont.load({
+  google: {
+    families: ["Titillium Web:300,400,700", "Roboto:300,400,500", "sans-serif"]
+  }
+});
 
 ReactDOM.render(
   <Provider store={store}>

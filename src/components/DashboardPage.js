@@ -4,6 +4,7 @@ import { compose } from "recompose";
 import { connect } from "react-redux";
 
 import * as actions from "../actions";
+import NavBar from "./NavBar";
 
 class DashboardPage extends Component {
   async componentDidMount() {
@@ -23,6 +24,7 @@ class DashboardPage extends Component {
     const { games } = this.props;
     return (
       <div>
+        <NavBar />
         <h2>Dashboard</h2>
         <h3>Saved Games</h3>
 
