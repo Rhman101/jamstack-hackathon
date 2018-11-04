@@ -23,29 +23,17 @@ export const deleteUser = id => async dispatch => {
   dispatch({ type: "CLEAR_USER" });
 };
 
-export const saveCurrentGame = (id, currentGame) => async dispatch => {
+export const saveGame = (userId, currentGame) => async dispatch => {
   // save to database
+  const { area, ...game } = currentGame;
 
-  dispatch({ type: "GET_CURRENT_GAME", currentGame });
+  dispatch({ type: "SAVE_GAME", currentGame });
 };
 
-export const getCurrentGame = id => async dispatch => {
-  // const currentGame = query from database
-  const currentGame = {};
-
-  dispatch({ type: "GET_CURRENT_GAME", currentGame });
-};
-
-export const updateCurrentGame = (id, updates) => async dispatch => {
-  // update in database
-
-  dispatch({ type: "UPDATE_CURRENT_GAME", updates });
-};
-
-export const deleteCurrentGame = id => async dispatch => {
+export const clearGame = (userId, area) => async dispatch => {
   // delete from database
 
-  dispatch({ type: "CLEAR_CURRENT_GAME" });
+  dispatch({ type: "CLEAR_GAME", area });
 };
 
 export const login = () => async dispatch => {
