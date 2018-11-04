@@ -6,22 +6,6 @@ import CHARACTERS from "../constants/characters";
 import OptionCard from "./OptionCard";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import femaleAvatar from "../assets/femaleAvatar.png";
-import maleAvatar from "../assets/maleAvatar.png";
-
-const CHARACTERS = [
-  {
-    description:
-      "Wielding nothing but a mighty mind, Character 1 slashes through monsters with razor sharp calculations.",
-    image: femaleAvatar,
-    name: "Character 1"
-  },
-  {
-    description: "Pencil and paper swish and flash whenever Character 2 decides to cast some math magic.",
-    image: maleAvatar,
-    name: "Character 2"
-  }
-];
 
 class CharacterSelect extends Component {
   onExit = () => {
