@@ -23,6 +23,12 @@ export const deleteUser = id => async dispatch => {
   dispatch({ type: "CLEAR_USER" });
 };
 
+export const getGames = userId => async dispatch => {
+  // query db for games by userId
+
+  dispatch({ type: "GET_GAMES" });
+};
+
 export const saveGame = (userId, currentGame) => async dispatch => {
   // save to database
   const { area, ...game } = currentGame;
