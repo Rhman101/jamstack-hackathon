@@ -4,8 +4,6 @@ import ProgressBox from "./ProgressBox";
 import NavBar from "./NavBar";
 
 class Game extends Component {
-  state = {};
-
   render() {
     return (
       <div>

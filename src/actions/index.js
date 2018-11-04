@@ -11,13 +11,14 @@ export const getUser = () => (dispatch, getState) => {
     });
 };
 
-export const getGames = () => (dispatch, getState) => {
+export const getGame = () => (dispatch, getState) => {
   const authUser = getState().auth.authUser;
 
   database
     .ref(`users/${authUser}/game`)
     .once("value")
     .then(game => {
+      console.log(game);
       dispatch({ type: "GET_GAME", game });
     });
 };
