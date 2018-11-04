@@ -1,9 +1,9 @@
-export default [{
+export default {
   gameId: 5,
-  currentArea: 'Addition',
+  currentArea: 'multiplication',
   currentLevel: 'easy',
   currentQuestion: null,
   numberCorrect: 0,
   currentHealth: 20,
   monsterHealth: 40
-}]
+}

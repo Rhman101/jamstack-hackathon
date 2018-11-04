@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 
-class Health extends Component {
+class Bar extends Component {
   state = {};
 
   render() {
@@ -13,4 +13,4 @@ class Health extends Component {
   }
 }
 
-export default Health;
+export default Bar;
