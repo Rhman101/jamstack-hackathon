@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import AREAS from "../constants/areas";
+import withAuth from "./withAuth";
 import OptionCard from "./OptionCard";
 
 class AreaSelect extends Component {
@@ -19,4 +20,4 @@ class AreaSelect extends Component {
   }
 }
 
-export default AreaSelect;
+export default withAuth(AreaSelect);

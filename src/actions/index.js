@@ -73,7 +73,7 @@ export const createUserWithEmail = (id, username, email) =>
     email
   });
 
-export const startLoginWithAuthProvider = authProvider => {
+export const loginWithAuthProvider = authProvider => {
   return () => {
     if (authProvider === "google") {
       return firebase.auth().signInWithPopup(googleAuthProvider);
@@ -83,7 +83,7 @@ export const startLoginWithAuthProvider = authProvider => {
   };
 };
 
-export const startLoginWithEmail = (email, password) =>
+export const loginWithEmail = (email, password) =>
   firebase.auth().signInWithEmailAndPassword(email, password);
 
 export const login = uid => async dispatch => {
