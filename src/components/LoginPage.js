@@ -1,19 +1,18 @@
 import React from "react";
 import { connect } from "react-redux";
-import FacebookLoginButton from "react-social-login-buttons/lib/buttons/FacebookLoginButton";
 import GoogleLoginButton from "react-social-login-buttons/lib/buttons/GoogleLoginButton";
 
 import * as actions from "../actions";
+import * as routes from "../constants/routes";
 import LoginWithEmail from "./LoginWithEmail";
 import SignupLink from "./SignupLink";
 
 export class LoginPage extends React.Component {
-  loginWithGoogle = () => {
-    this.props.logInWithAuthProvider("googleAuthProvider");
-  };
-  loginWithFacebook = () => {
-    this.props.logInWithAuthProvider("facebookAuthProvider");
-  };
+  componentDidUpdate() {
+    if (this.props.authUser) {
+      this.props.history.push(routes.DASHBOARD);
+    }
+  }
   render() {
     return (
       <div className="box-layout">
@@ -21,12 +20,8 @@ export class LoginPage extends React.Component {
           <h1 className="box-layout__title">Expensify</h1>
           <LoginWithEmail />
           <GoogleLoginButton
-            onClick={this.loginWithGoogle}
+            onClick={this.props.loginWithGoogleAuth}
             text={"Log in with Google"}
-          />
-          <FacebookLoginButton
-            onClick={this.loginWithFacebook}
-            text={"Log in with Facebook"}
           />
           <SignupLink />
         </div>
@@ -35,7 +30,9 @@ export class LoginPage extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({ authUser: !!state.auth.authUser });
+
 export default connect(
-  undefined,
+  mapStateToProps,
   actions
 )(LoginPage);

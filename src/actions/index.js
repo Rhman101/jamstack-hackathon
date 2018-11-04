@@ -1,8 +1,4 @@
-import database, {
-  firebase,
-  googleAuthProvider,
-  facebookAuthProvider
-} from "../services/firebase";
+import database, { firebase, googleAuthProvider } from "../services/firebase";
 
 export const getUser = () => async (dispatch, getState) => {
   const uid = getState().auth.uid;
@@ -73,27 +69,14 @@ export const createUserWithEmail = (id, username, email) =>
     email
   });
 
-export const loginWithAuthProvider = authProvider => {
-  return () => {
-    if (authProvider === "google") {
-      return firebase.auth().signInWithPopup(googleAuthProvider);
-    } else if (authProvider === "facebook") {
-      return firebase.auth().signInWithPopup(facebookAuthProvider);
-    }
-  };
-};
+export const loginWithGoogleAuth = () =>
+  firebase.auth().signInWithPopup(googleAuthProvider);
 
 export const loginWithEmail = (email, password) =>
   firebase.auth().signInWithEmailAndPassword(email, password);
 
-export const login = uid => async dispatch => {
-  dispatch({ type: "LOG_IN", uid });
-};
-
-export const logout = () => async dispatch => {
-  firebase.auth().signOut();
-
-  dispatch({ type: "LOG_OUT" });
+export const setAuthUser = authUser => dispatch => {
+  dispatch({ type: "SET_AUTH", authUser });
 };
 
 export const startResetPassword = email =>

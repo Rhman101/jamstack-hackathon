@@ -7,8 +7,8 @@ const withAuthentication = Component => {
   class WithAuthentication extends React.Component {
     componentDidMount() {
       const { setAuthUser } = this.props;
-      firebase.auth.onAuthStateChanged(authUser => {
-        authUser ? setAuthUser(authUser) : setAuthUser(null);
+      firebase.auth().onAuthStateChanged(authUser => {
+        authUser ? setAuthUser(authUser.uid) : setAuthUser(null);
       });
     }
     render() {

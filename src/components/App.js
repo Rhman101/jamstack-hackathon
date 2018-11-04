@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route, BrowserRouter } from "react-router-dom";
 
+import withAuth from "./withAuth";
 import * as routes from "../constants/routes";
 
 import LandingPage from "./LandingPage";
@@ -29,4 +30,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withAuth(App);
