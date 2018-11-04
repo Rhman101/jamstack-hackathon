@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import CharacterSelect from "./CharacterSelect";
 import AreaSelect from "./AreaSelect";
+import NavBar from "./NavBar";
 
 class GameSetupPage extends Component {
   state = {
@@ -10,17 +11,23 @@ class GameSetupPage extends Component {
 
   handleCharacterSelect = () => {
     this.toggleShowCharacterSelect();
-  }
+  };
 
   toggleShowCharacterSelect = () => {
-    this.setState(prevState => ({ showCharacterSelect: !prevState.showCharacterSelect }));
-  }
+    this.setState((prevState) => ({ showCharacterSelect: !prevState.showCharacterSelect }));
+  };
 
   render() {
     return (
       <div>
+        <NavBar />
+
         <h2>New Game</h2>
-        {this.state.showCharacterSelect ? <CharacterSelect handleCharacterSelect={this.handleCharacterSelect} /> : <AreaSelect onCancel={this.toggleShowCharacterSelect} />}
+        {this.state.showCharacterSelect ? (
+          <CharacterSelect handleCharacterSelect={this.handleCharacterSelect} />
+        ) : (
+          <AreaSelect onCancel={this.toggleShowCharacterSelect} />
+        )}
       </div>
     );
   }
