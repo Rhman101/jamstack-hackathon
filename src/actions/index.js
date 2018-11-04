@@ -11,68 +11,36 @@ export const getUser = () => (dispatch, getState) => {
     });
 };
 
-export const updateUser = updates => (dispatch, getState) => {
-  const authUser = getState().auth.authUser;
-
-  database
-    .ref(`users/${authUser}`)
-    .update(updates)
-    .then(user => {
-      dispatch({ type: "GET_USER", user });
-    });
-};
-
-export const deleteUser = () => (dispatch, getState) => {
-  const authUser = getState().auth.authUser;
-
-  database
-    .ref(`users/${authUser}`)
-    .remove()
-    .then(() => {
-      dispatch({ type: "CLEAR_USER" });
-    });
-};
-
 export const getGames = () => (dispatch, getState) => {
   const authUser = getState().auth.authUser;
 
   database
-    .ref(`users/${authUser}/games`)
+    .ref(`users/${authUser}/game`)
     .once("value")
-    .then(games => {
-      dispatch({ type: "GET_GAMES", games });
+    .then(game => {
+      dispatch({ type: "GET_GAME", game });
     });
 };
 
-export const saveGame = (currentGame, area) => (dispatch, getState) => {
+export const saveGame = currentGame => (dispatch, getState) => {
   const authUser = getState().auth.authUser;
-  const {
-    area,
-    level = 1,
-    charHealth = 100,
-    monsterHealth = 100,
-    questionNumber = 1
-  } = currentGame;
-  const gameToSave = { level, charHealth, monsterHealth, questionNumber };
 
   database
-    .ref(`users/${authUser}/games/${area}`)
-    .set(gameToSave)
-    .then(savedGame => {
-      const game = { id: savedGame.id, ...savedGame };
-
-      dispatch({ type: "SAVE_GAME", game, area });
+    .ref(`users/${authUser}/game`)
+    .set(currentGame)
+    .then(game => {
+      dispatch({ type: "GET_GAME", game });
     });
 };
 
-export const clearGame = area => (dispatch, getState) => {
+export const clearGame = () => (dispatch, getState) => {
   const authUser = getState().auth.authUser;
 
   database
-    .ref(`users/${authUser}/games/${area}`)
+    .ref(`users/${authUser}/game`)
     .remove()
     .then(() => {
-      dispatch({ type: "CLEAR_GAME", area });
+      dispatch({ type: "CLEAR_GAME" });
     });
 };
 

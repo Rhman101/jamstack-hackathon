@@ -18,10 +18,11 @@ export class LoginPage extends React.Component {
       <div className="box-layout">
         <div className="box-layout__box">
           <h1 className="box-layout__title">Expensify</h1>
-          <LoginWithEmail />
+          <LoginWithEmail history={this.props.history} />
           <GoogleLoginButton
             onClick={this.props.loginWithGoogleAuth}
             text={"Log in with Google"}
+            history={this.props.history}
           />
           <SignupLink />
         </div>
