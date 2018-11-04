@@ -1,9 +1,11 @@
-const authReducer = (state = null, action) => {
+const DEFAULT_STATE = null;
+
+const authReducer = (state = DEFAULT_STATE, action) => {
   switch (action.type) {
     case "LOG_IN":
-      return action.user;
+      return action.id;
     case "LOG_OUT":
-      return null;
+      return DEFAULT_STATE;
     default:
       return state;
   }
