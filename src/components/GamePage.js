@@ -1,3 +1,4 @@
+import requireLogin from "./requireLogin";
 import React, { Component } from "react";
 
 class Game extends Component {
@@ -12,4 +13,6 @@ class Game extends Component {
   }
 }
 
-export default Game;
+const authCondition = authUser => !!authUser;
+
+export default requireLogin(authCondition)(Game);

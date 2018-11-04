@@ -1,7 +1,7 @@
 import React from "react";
 import database from "../services/firebase";
 
-import { startCreateUserWithEmail } from "../actions";
+import { startCreateUserWithEmail, createUserWithEmail } from "../actions";
 
 const INITIAL_STATE = {
   username: "",
@@ -21,8 +21,7 @@ class SignUpForm extends React.Component {
     const { history } = this.props;
     startCreateUserWithEmail(email, passwordOne)
       .then(authUser => {
-        database
-          .doCreateUser(authUser.uid, username, email)
+        createUserWithEmail(authUser.uid, username, email)
           .then(authUser => {
             this.setState(() => ({ ...INITIAL_STATE }));
             history.push("/");

@@ -75,6 +75,12 @@ export const loginWithGoogleAuth = () =>
 export const loginWithEmail = (email, password) =>
   firebase.auth().signInWithEmailAndPassword(email, password);
 
+export const logout = () => async dispatch => {
+  await firebase.auth().signOut;
+
+  dispatch({ type: "SET_AUTH", authUser: null });
+};
+
 export const setAuthUser = authUser => dispatch => {
   dispatch({ type: "SET_AUTH", authUser });
 };
