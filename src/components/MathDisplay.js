@@ -1,12 +1,30 @@
 import React, { Component } from "react";
+//import {connect} from "react-redux";
+import generateRandomNumber from '../utils/generateRandomNumber';
+import createQuestion from '../utils/createQuestion';
 
 class MathDisplay extends Component {
   state = {
-    firstNumber: 12,
-    operation: '+',
-    secondNumber: 12,
-    answer: undefined
+    x: null,
+    y: null,
+    answer: '',
+    correctAnswer: null,
+    operator: ''
   };
+  componentDidMount() {
+    const x = generateRandomNumber();
+    const y = generateRandomNumber();
+    const calc = createQuestion(x, y, 'addition');
+    const operator = calc[0];
+    const correctAnswer = calc[1];
+
+    this.setState(() => ({
+      x: this.props.area === 'division' ? x * y : x,
+      y,
+      correctAnswer,
+      operator
+    }));
+  }
   onNumberChange = (e) => {
     e.preventDefault()
     const { value } = e.target
@@ -19,9 +37,9 @@ class MathDisplay extends Component {
       <div className="content-container">
         <div>
           <div className="box">
-            {this.state.firstNumber}
-            {this.state.operation}
-            {this.state.secondNumber}
+            {this.state.x}
+            {this.state.operator}
+            {this.state.y}
           </div>
           <form className="content-container">
             <input type="number" value={this.state.answer} onChange={this.state.onNumberChange} />
