@@ -18,12 +18,12 @@ const styles = (theme) => ({
   }
 });
 
-class EnemyStrength extends React.Component {
+class PlayerStrength extends React.Component {
   state = {
-    enemyStrength: 100
+    playerStrength: 100
   };
   loseStrength = () => {
-    this.setState({ enemyStrength: this.state.enemyStrength - 10 });
+    this.setState({ playerStrength: this.state.playerStrength - 10 });
   };
   render() {
     const { classes } = this.props;
@@ -41,17 +41,17 @@ class EnemyStrength extends React.Component {
           variant="static"
           size={50}
           thickness={6}
-          value={this.state.enemyStrength}
+          value={this.state.playerStrength}
         />
-        <Typography>Enemy Strength</Typography>
+        <Typography>Player Strength</Typography>
         <Button onClick={this.loseStrength}>Hit Me</Button>
       </div>
     );
   }
 }
 
-EnemyStrength.propTypes = {
+PlayerStrength.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(EnemyStrength);
+export default withStyles(styles)(PlayerStrength);

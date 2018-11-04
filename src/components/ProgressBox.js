@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import CountDownTimer from "./CountDownTimer";
 import EnemyStrength from "./EnemyStrength";
+import PlayerStrength from "./PlayerStrength";
 
 const styles = (theme) => ({
   progress: {
@@ -45,6 +46,15 @@ class ProgressBox extends React.Component {
           }}
         >
           <EnemyStrength />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center"
+          }}
+        >
+          <PlayerStrength />
         </div>
       </Paper>
     );

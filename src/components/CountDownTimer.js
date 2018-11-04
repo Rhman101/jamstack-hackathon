@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 
 const styles = (theme) => ({
   progress: {
@@ -59,7 +60,7 @@ class CountDownTimer extends React.Component {
           thickness={6}
           value={this.state.timeLeft}
         />
-        <h3>Time</h3>
+        <Typography>Time</Typography>
         <Button onClick={this.timerReset}>Reset</Button>
       </div>
     );
