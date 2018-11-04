@@ -14,7 +14,9 @@ class Game extends Component {
     this.setState(() => ({
       area: 'addition',
       name: 'George',
-      level: 'easy'
+      level: 'easy',
+      playerHealth: 20,
+      monsterHealth: 20
     }));
   }
 
@@ -22,7 +24,11 @@ class Game extends Component {
     return (
       <div className="content-container">
         <h2 className="title">{this.state.area}</h2>
-        <MathDisplay area={this.state.area} />
+        <MathDisplay
+          area={this.state.area}
+          playerHealth={this.state.playerHealth}
+          monsterHealth={this.state.monsterHealth}
+        />
         <ProgressBox />
       </div>
     );
